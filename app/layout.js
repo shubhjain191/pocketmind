@@ -12,13 +12,13 @@ const lora = Lora({
 
 export const metadata = {
   title: "PocketMind",
-  description: "PocketMind - One stop AI Finance Platform",
+  description: "Take control of your financial future with AI-powered insights",
 };
 
 export default function RootLayout({ children }) {
   return (
     <ClerkProvider>
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={`${lora.variable} antialiased`}>
         {/* header */}
         <Header />
