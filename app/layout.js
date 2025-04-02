@@ -3,6 +3,7 @@ import "./globals.css";
 import Header from "@/components/header"
 import Footer from "@/components/footer";
 import { ClerkProvider } from "@clerk/nextjs";
+import { Toaster} from "sonner"
 
 const lora = Lora({
   variable: "--font-lora",
@@ -23,6 +24,7 @@ export default function RootLayout({ children }) {
         {/* header */}
         <Header />
         <main className="min-h-screen">{children}</main>
+        <Toaster richColors />
         {/* footer */}
         <Footer />
       </body>

@@ -1,6 +1,6 @@
 "use client"
 
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Drawer, DrawerTrigger, DrawerContent, DrawerHeader, DrawerTitle, DrawerClose } from '@/components/ui/drawer'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -12,10 +12,14 @@ import {
     SelectItem,
     SelectTrigger,
     SelectValue,
-  } from "@/components/ui/select"
-import { Input } from "@/components/ui/input"  
+} from "@/components/ui/select"
+import { Input } from "@/components/ui/input"
 import { Switch } from './ui/switch'
 import { Button } from './ui/button'
+import useFetch from '@/hooks/use-fetch'
+import { Loader2 } from 'lucide-react'
+import { createAccount } from "@/actions/dashboard"
+import { toast } from 'sonner'
 
 const CreateAccountDrawer = ({ children }) => {
 
@@ -38,8 +42,29 @@ const CreateAccountDrawer = ({ children }) => {
         }
     })
 
+    const {
+        data: newAccount,
+        error,
+        fn: createAccountFn,
+        loading: createAccountLoading } = useFetch(createAccount)
+
+        useEffect(() => {
+            if (newAccount && !createAccountLoading) {
+                toast.success("Account created successfully")
+                reset()
+                setOpen(false)
+            }
+        }, [createAccountLoading, newAccount])
+
+        useEffect(() => {
+            if (error) {
+                toast.error(error.message || "Failed to create account"); 
+            }
+        }, [])
+        
+
     const onSubmit = async (data) => {
-        console.log(data)
+        await createAccountFn(data)
     }
     return (
         <div className="w-full">
@@ -53,8 +78,8 @@ const CreateAccountDrawer = ({ children }) => {
                         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
                             <div className="space-y-2">
                                 <label htmlFor="name" className="text-sm font-medium text-gray-700">Account Name</label>
-                                <Input 
-                                    id="name" 
+                                <Input
+                                    id="name"
                                     placeholder="e.g., Main Checking"
                                     className="w-full border-gray-300 focus:ring-blue-900 focus:border-blue-900 transition-colors"
                                     {...register("name")}
@@ -65,7 +90,7 @@ const CreateAccountDrawer = ({ children }) => {
                             </div>
                             <div className="space-y-2">
                                 <label htmlFor="type" className="text-sm font-medium text-gray-700">Account Type</label>
-                                <Select 
+                                <Select
                                     onValueChange={(value) => setValue("type", value)}
                                     defaultValue={watch("type")}
                                 >
@@ -83,10 +108,10 @@ const CreateAccountDrawer = ({ children }) => {
                             </div>
                             <div className="space-y-2">
                                 <label htmlFor="balance" className="text-sm font-medium text-gray-700">Initial Balance</label>
-                                <Input 
-                                    id="balance" 
-                                    placeholder="0.00" 
-                                    type="number" 
+                                <Input
+                                    id="balance"
+                                    placeholder="0.00"
+                                    type="number"
                                     step="0.01"
                                     className="w-full border-gray-300 focus:ring-blue-900 focus:border-blue-900 transition-colors"
                                     {...register("balance")}
@@ -101,30 +126,37 @@ const CreateAccountDrawer = ({ children }) => {
                                         <label htmlFor="isDefault" className="text-sm font-medium text-gray-700">Set as Default</label>
                                         <p className="text-sm text-gray-500">This account will be selected by default for transactions</p>
                                     </div>
-                                    <Switch 
+                                    <Switch
                                         id="isDefault"
                                         onCheckedChange={(checked) => setValue("isDefault", checked)}
                                         checked={watch("isDefault")}
                                         className="data-[state=checked]:bg-blue-900"
-                                        {...register("isDefault")} 
+                                        {...register("isDefault")}
                                     />
                                 </div>
                             </div>
                             <div className="flex justify-end space-x-4 mt-8">
                                 <DrawerClose asChild>
-                                    <Button 
-                                        type="button" 
-                                        variant="outline" 
+                                    <Button
+                                        type="button"
+                                        variant="outline"
                                         className="px-4 py-2 border border-gray-300 hover:bg-gray-50 transition-colors"
                                     >
                                         Cancel
                                     </Button>
                                 </DrawerClose>
-                                <Button 
-                                    type="submit" 
+                                <Button
+                                    type="submit"
                                     className="px-4 py-2 bg-blue-900 text-white hover:bg-blue-800 transition-colors"
+                                    disabled={createAccountLoading}
                                 >
-                                    Create Account
+                                    {createAccountLoading ? (
+                                        <>
+                                            <Loader2 className='mr-2 h-4 w-4 animate-spin' />
+                                            Creating...
+                                        </>
+                                    ) :
+                                        ("Create Account")}
                                 </Button>
                             </div>
                         </form>
