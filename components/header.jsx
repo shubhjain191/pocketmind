@@ -1,15 +1,15 @@
-"use client";
 
-import { useState } from "react";
+import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { SignedIn, SignedOut, SignInButton, SignUpButton, UserButton } from "@clerk/nextjs";
 import { Button } from "./ui/button";
 import { PenBox, LayoutDashboard } from "lucide-react";
+import checkUser from "@/lib/checkUser.js";
+import MobileNav from "./mobile-nav";
 
-export default function Header() {
-  const [menuOpen, setMenuOpen] = useState(false);
-
+const Header = async () => {
+  await checkUser();
   return (
     <header className="fixed top-0 w-full bg-white/80 backdrop-blur-md z-50 border-b shadow-md">
       <nav className="container mx-auto flex items-center justify-between p-4">
@@ -29,21 +29,19 @@ export default function Header() {
           </span>
         </Link>
 
-        {/* Mobile Menu Button */}
-        <button onClick={() => setMenuOpen(!menuOpen)} className="lg:hidden text-[#1E3A8A] focus:outline-none">
-          {menuOpen ? <i className="fa fa-times text-2xl"></i> : <i className="fa fa-bars text-2xl"></i>}
-        </button>
+        <SignedOut>
+          {/* Mobile Navigation */}
+          <MobileNav />
 
-        {/* Navigation Links */}
-        <ul className={`lg:flex space-x-6 items-center ${menuOpen ? "block" : "hidden"} absolute top-16 left-0 w-full bg-white shadow-md lg:relative lg:top-0 lg:w-auto lg:shadow-none`}>
-          <SignedOut>
+          {/* Desktop Navigation */}
+          <ul className="hidden lg:flex space-x-6 items-center">
             <li><Link href="/" className="text-[#1E3A8A] hover:text-[#FFD700] transition">Home</Link></li>
             <li><a href="#features" className="text-[#1E3A8A] hover:text-[#FFD700] transition">Features</a></li>
             <li><a href="#testimonials" className="text-[#1E3A8A] hover:text-[#FFD700] transition">Testimonials</a></li>
             <li><Link href="#about-us" className="text-[#1E3A8A] hover:text-[#FFD700] transition">About Us</Link></li>
             <li><Link href="#contact-us" className="text-[#1E3A8A] hover:text-[#FFD700] transition">Contact</Link></li>
-          </SignedOut>
-        </ul>
+          </ul>
+        </SignedOut>
 
         {/* Action Buttons */}
         <div className="flex space-x-4 items-center">
@@ -83,3 +81,4 @@ export default function Header() {
     </header>
   );
 }
+export default Header;

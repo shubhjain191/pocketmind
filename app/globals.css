@@ -119,4 +119,11 @@
   body {
     @apply bg-background text-foreground;
   }
+  .gradient-title {
+    font-weight: 800;
+    background: linear-gradient(90deg, #1E3A8A 10%, #FFD700 90%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+  }  
 }

@@ -1,36 +1,76 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# PocketMind - AI-Powered Personal Finance Assistant
+
+## Overview
+PocketMind is an intelligent personal finance management application that combines AI technology with modern financial tools to help you make smarter decisions about your money. It provides personalized insights, automated expense tracking, and intelligent budget recommendations tailored to your financial goals.
+
+## Key Features
+- 🤖 **AI-Powered Analysis**: Get personalized financial insights and recommendations
+- 📊 **Smart Dashboard**: Modern, intuitive interface with real-time financial analytics
+- 💰 **Expense Tracking**: Automated categorization and tracking of your expenses
+- 📈 **Budget Planning**: AI-assisted budget creation based on your spending patterns
+- 🔐 **Secure Authentication**: Protected access to your financial data
+- 📱 **Responsive Design**: Seamless experience across all devices
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+- Node.js (v14 or higher)
+- npm or yarn package manager
+- Modern web browser
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### Installation
+1. Clone the repository
+   ```bash
+   git clone https://github.com/yourusername/pocketmind.git
+   cd pocketmind
+   ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install dependencies
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+3. Set up environment variables
+   ```bash
+   cp .env.example .env
+   ```
+   Fill in your environment variables in the `.env` file
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Start the development server
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   ```
 
-## Learn More
+## Usage
+1. Create an account or log in to your existing account
+2. Connect your financial accounts or manually input your financial data
+3. Explore the dashboard to view your financial overview
+4. Use the AI features to get personalized financial insights
+5. Set up budgets and financial goals
+6. Track your progress and adjust your financial strategy
 
-To learn more about Next.js, take a look at the following resources:
+## Technology Stack
+- **Frontend**: Next.js with JavaScript
+- **Styling**: Tailwind CSS
+- **Authentication**: Clerk
+- **AI Integration**: OpenAI API
+- **Database**: PostgreSQL
+- **ORM**: Prisma
+- **API**: Next.js API Routes
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Contributing
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## Deploy on Vercel
+## Support
+If you have any questions or need support, please open an issue in the repository.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Made with ❤️ by Shubh Jain
