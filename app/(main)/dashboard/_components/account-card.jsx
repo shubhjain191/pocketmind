@@ -16,7 +16,7 @@ import Link from "next/link";
 import { updateDefaultAccount } from "@/actions/account";
 import { toast } from "sonner";
 
-export default function AccountCard({ account }) {
+export function AccountCard({ account }) {
   const { name, type, balance, id, isDefault } = account;
 
   const {
@@ -50,34 +50,33 @@ export default function AccountCard({ account }) {
   }, [error]);
 
   return (
-    <Card className="hover:shadow-lg transition-all duration-300 bg-gradient-to-br from-white to-blue-50 border border-blue-100 group relative overflow-hidden p-1">
+    <Card className="hover:shadow-md transition-shadow group relative">
       <Link href={`/account/${id}`}>
-        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4 px-4 pt-4">
-          <CardTitle className="text-sm font-semibold text-blue-900 capitalize">
+        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+          <CardTitle className="text-sm font-medium capitalize">
             {name}
           </CardTitle>
           <Switch
             checked={isDefault}
             onClick={handleDefaultChange}
             disabled={updateDefaultLoading}
-            className="data-[state=checked]:bg-blue-800"
           />
         </CardHeader>
-        <CardContent className="px-4 py-2 space-y-2">
-          <div className="text-2xl font-bold text-blue-950 tracking-tight">
+        <CardContent>
+          <div className="text-2xl font-bold">
             ${parseFloat(balance).toFixed(2)}
           </div>
-          <p className="text-xs text-blue-600/75">
+          <p className="text-xs text-muted-foreground">
             {type.charAt(0) + type.slice(1).toLowerCase()} Account
           </p>
         </CardContent>
-        <CardFooter className="flex justify-between text-sm bg-blue-50/50 rounded-b-lg p-4 mt-2">
-          <div className="flex items-center hover:text-blue-700 transition-colors gap-1">
-            <ArrowUpRight className="h-4 w-4 text-green-500" />
+        <CardFooter className="flex justify-between text-sm text-muted-foreground">
+          <div className="flex items-center">
+            <ArrowUpRight className="mr-1 h-4 w-4 text-green-500" />
             Income
           </div>
-          <div className="flex items-center hover:text-blue-700 transition-colors gap-1">
-            <ArrowDownRight className="h-4 w-4 text-red-500" />
+          <div className="flex items-center">
+            <ArrowDownRight className="mr-1 h-4 w-4 text-red-500" />
             Expense
           </div>
         </CardFooter>

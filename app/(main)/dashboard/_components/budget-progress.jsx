@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Pencil, Check, X, AlertCircle } from "lucide-react";
+import { Pencil, Check, X } from "lucide-react";
 import useFetch from "@/hooks/use-fetch";
 import { toast } from "sonner";
 
@@ -63,30 +63,21 @@ export function BudgetProgress({ initialBudget, currentExpenses }) {
     }
   }, [error]);
 
-  const getStatusColor = () => {
-    if (percentUsed >= 90) return "text-red-500";
-    if (percentUsed >= 75) return "text-amber-500";
-    return "text-emerald-500";
-  };
-
   return (
-    <Card className="shadow-sm hover:shadow transition-shadow duration-200">
+    <Card>
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
         <div className="flex-1">
-          <CardTitle className="text-sm font-medium flex items-center gap-2">
+          <CardTitle className="text-sm font-medium">
             Monthly Budget (Default Account)
-            {initialBudget && percentUsed >= 75 && (
-              <AlertCircle className={`h-4 w-4 ${getStatusColor()}`} />
-            )}
           </CardTitle>
           <div className="flex items-center gap-2 mt-1">
             {isEditing ? (
-              <div className="flex items-center gap-2 transition-all duration-200 ease-in-out">
+              <div className="flex items-center gap-2">
                 <Input
                   type="number"
                   value={newBudget}
                   onChange={(e) => setNewBudget(e.target.value)}
-                  className="w-32 focus:ring-2 focus:ring-primary/20"
+                  className="w-32"
                   placeholder="Enter amount"
                   autoFocus
                   disabled={isLoading}
@@ -96,7 +87,6 @@ export function BudgetProgress({ initialBudget, currentExpenses }) {
                   size="icon"
                   onClick={handleUpdateBudget}
                   disabled={isLoading}
-                  className="hover:bg-green-50 transition-colors duration-200"
                 >
                   <Check className="h-4 w-4 text-green-500" />
                 </Button>
@@ -105,14 +95,13 @@ export function BudgetProgress({ initialBudget, currentExpenses }) {
                   size="icon"
                   onClick={handleCancel}
                   disabled={isLoading}
-                  className="hover:bg-red-50 transition-colors duration-200"
                 >
                   <X className="h-4 w-4 text-red-500" />
                 </Button>
               </div>
             ) : (
               <>
-                <CardDescription className={`${initialBudget ? getStatusColor() : ""} font-medium`}>
+                <CardDescription>
                   {initialBudget
                     ? `$${currentExpenses.toFixed(
                         2
@@ -123,7 +112,7 @@ export function BudgetProgress({ initialBudget, currentExpenses }) {
                   variant="ghost"
                   size="icon"
                   onClick={() => setIsEditing(true)}
-                  className="h-6 w-6 hover:bg-slate-100 transition-colors duration-200"
+                  className="h-6 w-6"
                 >
                   <Pencil className="h-3 w-3" />
                 </Button>
@@ -138,14 +127,15 @@ export function BudgetProgress({ initialBudget, currentExpenses }) {
             <Progress
               value={percentUsed}
               extraStyles={`${
+                // add to Progress component
                 percentUsed >= 90
                   ? "bg-red-500"
                   : percentUsed >= 75
-                    ? "bg-amber-500"
-                    : "bg-emerald-500"
-              } transition-all duration-300 ease-in-out`}
+                    ? "bg-yellow-500"
+                    : "bg-green-500"
+              }`}
             />
-            <p className={`text-xs text-right transition-colors duration-200 ${getStatusColor()}`}>
+            <p className="text-xs text-muted-foreground text-right">
               {percentUsed.toFixed(1)}% used
             </p>
           </div>

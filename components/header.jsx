@@ -5,7 +5,7 @@ import Image from "next/image";
 import { SignedIn, SignedOut, SignInButton, SignUpButton, UserButton } from "@clerk/nextjs";
 import { Button } from "./ui/button";
 import { PenBox, LayoutDashboard } from "lucide-react";
-import checkUser from "@/lib/checkUser.js";
+import checkUser from "@/lib/checkUser";
 import MobileNav from "./mobile-nav";
 
 const Header = async () => {
